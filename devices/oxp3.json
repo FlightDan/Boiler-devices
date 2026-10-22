@@ -33,9 +33,11 @@
       "os_id": "steamos",
       "os_version": "3.10",
       "evidence": [
-        "https://github.com/FlightDan/OneXPlayer3-SteamOS/commit/e181a9055e1c94e8d758e2b9575f60fb5fc5109c"
+        "https://github.com/FlightDan/OneXPlayer3-SteamOS/releases/tag/boiler-device-v0.1.0-preview.1"
       ],
-      "note": "Pinned existing public code and artifact only. New-stack fresh install, activation, rollback and hardware acceptance are pending."
+      "note": "Exact 0.1.0-preview.1 package passed disposable-image A/B installation, two anchored plans, read-only model byte/journal verification, and deployment readiness on SteamOS 3.10. Source image unchanged. Physical installation, first boot, activation, suspend and hardware acceptance remain pending.",
+      "kernel": "7.2.4-valve1-1-neptune-72-g5ab4af5e2eb9",
+      "date": "2026-10-22"
     },
     {
       "status": "blocked",
