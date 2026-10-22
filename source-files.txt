@@ -1,0 +1,9 @@
+.gitignore
+LICENSE
+README.md
+THIRD_PARTY_NOTICES.md
+device-index.json
+devices/oxp3.json
+scripts/build-index.py
+source-files.txt
+tests/test_registry.py
