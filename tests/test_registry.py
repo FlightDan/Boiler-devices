@@ -16,6 +16,13 @@ spec.loader.exec_module(builder)
 
 
 class RegistryTests(unittest.TestCase):
+    def test_readonly_hardware_advice_contract(self):
+        value={'mode':'advisory-exact-dmi-v1','pairs':[{'manufacturer':'ONE-NETBOOK','model':'ONEXPLAYER 3'}]}
+        self.assertEqual(builder.hardware_advice(value),value)
+        for invalid in (dict(value,script='scripts/run.sh'),dict(value,mode='regex'),dict(value,pairs=[]),
+                        dict(value,pairs=value['pairs']*33),dict(value,pairs=[{'manufacturer':'x','model':'bad\n'}])):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError): builder.hardware_advice(invalid)
+
     def fixture(self, base):
         base.mkdir()
         (base/'payload').mkdir()

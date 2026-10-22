@@ -27,6 +27,19 @@ def digest(path):
     return result.hexdigest()
 
 
+def hardware_advice(value):
+    if (not isinstance(value, dict) or set(value) != {'mode', 'pairs'}
+            or value['mode'] != 'advisory-exact-dmi-v1' or not isinstance(value['pairs'], list)
+            or not 1 <= len(value['pairs']) <= 32): raise ValueError('Invalid advisory hardware matching')
+    for pair in value['pairs']:
+        if not isinstance(pair, dict) or set(pair) != {'manufacturer', 'model'}: raise ValueError('Invalid advisory DMI pair')
+        for field in pair.values():
+            if (not isinstance(field, str) or not 1 <= len(field) <= 256 or not field.strip()
+                    or any(ord(c) < 32 or 127 <= ord(c) <= 159 for c in field)):
+                raise ValueError('Invalid advisory DMI value')
+    return value
+
+
 def document(raw):
     def pairs(entries):
         result = {}
@@ -306,6 +319,8 @@ def build(package, output, *, archive=None, asset_url=None, sequence=None, previ
                      verification_scope='local-manifest-and-archive-inventory',
                      source_url='https://github.com/'+source['repository']+'/tree/'+source['commit']+'/boiler-device',
                      declared_source=source)
+        if 'hardware_matching' in device:
+            entry['hardware_matching'] = hardware_advice(device['hardware_matching'])
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open('x', encoding='utf-8', newline='\n') as stream:
         stream.write(json.dumps(index, ensure_ascii=False, indent=2)+'\n')
