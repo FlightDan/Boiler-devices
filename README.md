@@ -1,9 +1,8 @@
 # Boiler device registry
 
-This independent repository discovers device packages; it contains no hardware
-modification script or model runtime. Packages remain in their model repository.
-The initial OXP3 entry uses the existing `FlightDan/OneXPlayer3-SteamOS` repository
-and preserves all of its historical releases.
+This repository contains the Boiler device registry and a brand/model adaptation source collection.
+Start at [ADAPTATIONS.md](ADAPTATIONS.md) for OXP3 and X2 Mini installation guides.
+Executable device packages continue to use the existing authenticated package workflow.
 
 `device-index.json` follows DeviceIndex schema version 1. Sequence numbers are
 monotonic, revocations refer to manifest SHA-256 values, and each production
